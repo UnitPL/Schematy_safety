@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Draggable - Default functionality</title>
+  <link rel="stylesheet" href="jquery-ui.css">
+  <link rel="stylesheet" href="ui\1.12.1\thames\themes\base\theme.css">
+  <style>
+    #wszystko   { width: 100vw; height: 100vh; text-align: center; }
+    #pole_wyboru   { width: 15%; height: 100%; text-align: center;  float: left; background-color: gray; opacity: 0.6; padding: 0.5em;}
+    #preelement   { }
+    #element   { width: 100px; height: 20px; padding: 0.5em; font-size: small; margin: 1px; border-width:1px; border-color: black; }
+    input.referencja {width: 80%; border: 0; outline: none; text-align: center; }
+    #pole_tworzenia_funkcji   { width: 80%; height: 100%; float: left; text-align: center;}
+    
+    /*.draggable { width: 150px; height: 150px; padding: 0.5em; }
+    /*.resizable { width: 150px; height: 150px; padding: 0.5em; }
+    /*.resizable h3 { text-align: center; margin: 0; }
+    /*.droppable { width: 80%; height: 80%; padding: 0.5em; right: 0; ; bottom: 0; }
+  </style>
+  <script src="jquery-1.12.4.js"></script>
+  <script src="jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( ".resizable" ).resizable({autoHide: true});
+    $( ".draggable" ).draggable({helper: "clone", containment: '#wszystko', snap: true, snapMode: "outer", revert: "invalid"});
+    $( ".droppable" ).droppable({
+      accept: ".draggable",
+
+
+      drop: function( event, ui ) {
+        /*$( this )
+          .addClass( "ui-state-highlight" )
+          .find( "p" )
+            .html( "Dropped!" );*/
+        var new_signature = $(ui.helper).clone().removeClass('draggable');
+            new_signature.draggable({containment: '#wszystko', snap: true, snapMode: "outer",});
+            /*new_signature.resizable({});*/
+            $(this).append(new_signature);
+            $("#element").addclass('resizable');
+        /*var new_resizable = $(ui.helper).clone().
+            console.log(event);
+            console.log(ui);*/
+      },
+      addclass: function(event, ui) {$('div').addClass('resizable');},
+      /*over: function(event, ui) {
+        $("#draggable").draggable({
+            grid: [50, 50]
+            });
+      },
+      out: function(event, ui) {
+        $("#draggable").draggable("option", "grid", true);
+      },
+    });
+    $("input").click(function(){
+                $(".draggable").draggable("option", "snapMode", $(this).val());        
+            $("#info").html($(this).val());*/
+        });
+  } );
+
+  </script>
+</head>
+<body>
+<div id="wszystko">
+  <div id="pole_wyboru" class="">
+    <div id="preelement" class="draggable">
+      <div id="element"  class="ui-widget-content resizable" >
+        <input type="text" class="referencja" value="E-stop" ></input>
+      </div>
+    </div>
+    <div id="preelement" class="draggable">
+      <div id="element"  class="ui-widget-content resizable">
+        <input type="text" class="referencja" value="Kurtyna"></input>
+      </div>
+    </div>
+  </div>
+  <div id="pole_tworzenia_funkcji" class="ui-widget-header droppable">
+    <p>Drop here</p>
+  </div>
+</div>
+ 
+</body>
+</html>
